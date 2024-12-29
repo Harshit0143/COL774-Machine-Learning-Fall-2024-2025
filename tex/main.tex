@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage{latexsym,amsfonts,amssymb,amsthm,amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{bbm}
+\usepackage{tcolorbox}
+\usepackage{indentfirst}
+\usepackage[colorlinks=true]{hyperref}
+\title{Indian Institute of Technology Delhi\\COL774: Machine Learning\\Fall 2024-2025\\Practice Problems}
+\author{Harshit Goyal}
+\date{November 2024}
+\usepackage[a4paper, left=1.0in, right=1.0in]{geometry}
+
+\newcommand*{\xieg}{\mathbf{x}^{(i)}}
+\newcommand*{\xupi}{x^{(i)}}
+\newcommand*{\xhati}{\hat{\mathbf{x}}^{(i)}}
+\newcommand*{\yieg}{y^{(i)}}
+\newcommand*{\zieg}{z^{(i)}}
+\newcommand*{\yhatieg}{\hat{y}^{(i)}}
+\newcommand*{\loss}{\mathcal{L}}
+\newcommand*{\data}{\mathcal{D}}
+\newcommand*{\wb}{\mathbf{w}}
+\newcommand*{\mM}{\mathbf{M}}
+\newcommand{\gdaparm}{\phi, \boldsymbol{\mu}_0, \boldsymbol{\mu}_1, \boldsymbol{\Sigma}_0, \boldsymbol{\Sigma}_1}
+\newcommand*{\re}{\mathcal{R}}
+\newcommand*{\bsigma}{\boldsymbol{\Sigma}}
+\newcommand*{\bmu}{\boldsymbol{\mu}}
+\newcommand*{\mv}{\mathbf{v}}
+\newcommand*{\me}{\mathbf{e}}
+
+\newcommand*{\bphi}{\boldsymbol{\phi}}
+
+\newcommand*{\bu}{\mathbf{u}}
+\newcommand*{\bz}{\mathbf{0}}
+\newcommand*{\mz}{\mathbf{z}}
+\newcommand*{\mZ}{\mathbf{Z}}
+\newcommand*{\mA}{\mathbf{A}}
+\newcommand*{\mE}{\mathbf{E}}
+\newcommand*{\malpha}{\boldsymbol{\alpha}}
+\newcommand*{\mc}{\mathbf{C}}
+\newcommand*{\mb}{\mathbf{b}}
+\newcommand*{\mx}{\mathbf{x}}
+\newcommand*{\md}{\mathbf{d}}
+\newcommand*{\expect}{\mathbb{E}}
+\newcommand*{\my}{\mathbf{y}}
+\newcommand*{\mQ}{\mathbf{Q}}
+\newcommand*{\mX}{\mathbf{X}}
+\newcommand*{\mC}{\mathbf{C}}
+\newcommand*{\mY}{\mathbf{Y}}
+\newcommand*{\mf}{\mathbf{f}}
+\newcommand*{\mt}{\mathbf{t}}
+\newcommand*{\mmu}{\mathbf{u}}
+\newcommand*{\bU}{\mathbf{U}}
+\newcommand*{\beps}{\boldsymbol{\epsilon}}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\maxbelow}[1]{\max\limits_{#1}}
+\newcommand{\minbelow}[1]{\min\limits_{#1}}
+
+\newcommand{\at}[2][]{#1|_{#2}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+\begin{document}
+
+\maketitle
+
+\input{about}
+
+\tableofcontents
+\section{Introduction}\label{intro}
+\input{intro}
+\newpage
+\section{Regression}
+\input{regression/p0}
+\input{regression/p1}
+\input{regression/p5}
+\input{regression/p4}
+\input{regression/p8}
+\input{regression/p3}
+\input{regression/p7}
+\input{regression/p2}
+
+\newpage
+\section{Neural Networks}
+\input{neuralnetworks/p1}
+\input{neuralnetworks/p2}
+\input{neuralnetworks/p3}
+\newpage
+\section{Gaussian Discriminant Analysis and Naive Bayes}\label{sec:gda}
+\input{gdanb/p1}
+\input{gdanb/p2}
+\newpage
+\section{Principal Component Analysis}
+\input{pca/p1}
+\section{Decision Trees}
+\input{dtree/p1}
+% \newpage
+\section{Support Vector Machines}
+\input{svm/p1}
+\section{Clustering Algorithms}
+\input{gnn_knn/p1}
+\newpage
+\nocite{*}
+\bibliographystyle{apalike}
+\bibliography{citation}
+\end{document}

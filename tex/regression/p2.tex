@@ -1,0 +1,106 @@
+\subsection{Is this Linear Regression?}
+Consider this regression problem. Here $n > 4$ and the prediction
+$$\yhatieg = \wb^T \xieg$$
+
+We have $4$ \textbf{Linearly Independent Constraints} on $\wb$ represented as 
+\begin{align*} \label{p1_constraints}
+\mathbf{M}\wb = \mathbf{0}
+\end{align*}
+i.e. $\mathbf{M} \in \re^{4 \times n}$ and $rank(\mathbf{M}) = 4$.
+Under the above constraints obtain the optimum value of $\mathbf{w}$ that minimizes these loss functions.
+
+
+\begin{enumerate}[label=\alph*)]
+  \item \begin{equation*}
+   \loss_{SSE}(\wb)
+\end{equation*}
+  \item
+ \begin{equation*}
+   \loss_{SSE}(\wb) + \lambda \mathbf{w}^T \mA \mathbf{w}
+\end{equation*}
+
+Where $\lambda \in \mathcal{R}^{+}$ and $\mA$ is a \textbf{Symmetric Positive Definite Matrix}, are \textbf{constants}.
+\end{enumerate}
+
+Note that it is not intended that one uses Lagrangian Multipliers to solve this. 
+
+
+% \subsubsection{Solution}
+
+% Since $\mM$ has size $4 \times n$ and has rank $4$. It must have a sub-matrix of rank $4$. For simplicity, we'll assume the it's last $4$ rows and columns of $\mM$ (otherwise we can rename/ rearrange features to get this). Denote
+% \begin{align*}    
+% \mM &= \begin{bmatrix}
+%     \mM_1 & \mM_2
+% \end{bmatrix}\\
+% \wb &= \begin{bmatrix}
+%     \wb_1 \\
+%     \wb_2
+% \end{bmatrix}\\
+% \mX &= \begin{bmatrix}
+%     \mX_1 & \mX_2
+% \end{bmatrix}
+% \end{align*}
+
+% Where $\mM_1$ and $\mM_2$ have sizes ${4 \times (n - 4)}$ and ${4 \times 4}$. $\wb_1$ and $\wb_2$ have sizes $(n - 4)$ and $4$. $\mX_1$ and $\mX_2$ have sizes ${m \times (n - 4)}$ and ${m \times 4}$ respectively. Note that $\mM_2$ is invertible. 
+
+% Now, 
+% \begin{align*}
+% &\begin{bmatrix}
+%     \mM_1 & \mM_2
+% \end{bmatrix}
+%  \begin{bmatrix}
+%     \wb_1 \\
+%     \wb_2
+% \end{bmatrix} = \bz \\
+% \implies &\mM_1 \wb_1 + \mM_2 \wb_2 = \bz\\
+% \implies &\wb_2 = \mM_2^{-1}\mM_1 \wb_1
+% \end{align*}
+% Denote $\mZ = \mM_2^{-1}\mM_1$. We can see that,
+% \begin{align*}
+% \loss_{SSE}(\wb_1) &= (\mX\wb - \mY)^T(\mX\wb - \mY) \\
+% &= (\begin{bmatrix}
+%     \mX_1 & \mX_2
+% \end{bmatrix} \begin{bmatrix}
+%     \wb_1 \\
+%     \mZ \wb_1
+% \end{bmatrix} - \mY)^T(\begin{bmatrix}
+%     \mX_1 & \mX_2
+% \end{bmatrix} \begin{bmatrix}
+%     \wb_1 \\
+% \mZ \wb_1
+% \end{bmatrix}\ - \mY) \\
+%  &= ((\mX_1 + \mX_2 \mZ) \wb_1 - \mY)^T((\mX_1 + \mX_2 \mZ)\wb_1 - \mY)
+% \end{align*}
+
+% Denote $(\mX_1 + \mX_2 \mZ) = \mX_3$, and noting that $\wb_1$ is unconstrained it's easy to minimize
+
+% \begin{equation*}
+%      \loss_{SSE}(\wb_1)= (\mX_3 \wb_1 - \mY)^T(\mX_3\wb_1 - \mY)
+% \end{equation*}
+
+
+
+% \subsection*{Hints}
+% \begin{enumerate}
+%   \item You can reduce the problem to a standard Linear Regression Problem
+%   \item The below matrix is $\mathbf{invertible}$, when $i,j,k,l$ are distinct as $\alpha_i$'s are pairwise distinct.
+
+% \[
+% C = \begin{bmatrix}
+% 1 & 1 & 1 & 1 \\
+% \alpha_i & \alpha_j &  \alpha_k & \alpha_l\\
+% \alpha_i^2 & \alpha_j^2 &  \alpha_k^2 & \alpha_l^2\\
+% \alpha_i^3 & \alpha_j^3 &  \alpha_k^3 & \alpha_l^3\\
+% \end{bmatrix}
+% \]
+%   \item Set $(i,j,k,l)$ to $(k-3, k-2,k-1,k)$.
+%   \item Obtain $\begin{bmatrix}
+% w_{k - 3} & w_{k - 2} & w_{k - 1} & w_k
+% \end{bmatrix}^T$ in terms of $\begin{bmatrix}
+% w_{1} & w_{2} &  \cdots & w_{k - 4}
+% \end{bmatrix}^T$ and optimize the latter vector.
+
+% \end{enumerate}
+
+
+

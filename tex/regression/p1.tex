@@ -1,0 +1,57 @@
+\subsection{Regularized Linear Regression}
+For Linear Regression, obtain $\wb^{*}$ that minimizes $\loss_{SSE}(\wb) + \lambda \loss_2(\wb)$. $\lambda > 0$ is fixed.
+
+\subsection{Regression Line passes through mean}
+For Linear Regression, show that the line $(\wb^{*}, b^{*})$ minimizing $\loss_{SSE}(\wb, b)$ always satisfies
+\begin{equation*}    
+(\wb^{*})^T(\frac{1}{m} \sum_{i = 1}^{m} \xieg) + b^{*} =  \frac{1}{m} \sum_{i = 1}^{m} \yieg
+\end{equation*}
+
+Hint: See the equation obtained on setting,
+\begin{equation*}
+    \frac{\partial }{\partial b}\loss_{SSE}(\wb, b)\at[\big]{(\wb^*, b^*)} = 0
+\end{equation*}
+
+
+\subsection{Convex Functions}\label{def:convexity}
+
+A function \( f: \re^n \rightarrow \re \) is called convex if for all \( x_1, x_2 \in \re^n \) and \( \theta \in [0, 1] \), the following inequality holds:
+\[
+f(\theta x_1 + (1-\theta) x_2) \leq \theta f(x_1) + (1-\theta) f(x_2)
+\]
+This property ensures that the function lies below the straight line connecting any two points on its graph. Convex functions play a crucial role in optimization problems, as they ensure s they ensure that any local minimum is also a global minimum.
+
+\vspace{0.5cm}
+\subsubsection{Discuss convexity}
+
+\begin{enumerate}
+    \item \( f(x) = e^{ax} \), \( f(x) = \log(x) \). \( f(x) = x^3\) in their respective domains.\\\\
+        (Use the second derivative of each function)\\\\
+      For the below parts, do it by computing the hessian.
+        
+    \item \( f(\mx) = \|\mx\|_2 = \sqrt{\sum_{i} x_i^2} \), where \( \mx  \in \re^n\).\\\\
+    (This is convex but you can't do it by computing the Hessian as the function is not differentiable at $\mx = \bz$. You'll need to prove using the definition in \nameref{def:convexity} and the Cauchy–Schwarz Inequality.)
+
+
+  \item \( f(\mx) = \mx^T \mA \mx \), where \( \mA \in \re^{n \times n} \), \( \mx \in \re^n \). $\mA$ is Diagonal. \\\\
+   (Convex if and only if all entries of $\mA$ are non-negative)
+
+
+    \item \( f(\mx) = \mx^T \mA \mx \), where \( \mA \in \re^{n \times n} \), \( \mx \in \re^n \). $\mA$ is Symmetric. \\\\
+    (Convex if and only if all eigenvalues of $\mA$ are non-negative)
+
+    \item \( f(\mx, \my) = \mx^T \mA \my \), where \( \mA \in \re^{m \times n} \), \( \mx \in \re^m \), and \( \my \in \re^n \).\\\\
+    ($f(\mx, \my)$ is convex $\iff$ $\mA = 0$)
+
+    \end{enumerate}
+\subsubsection{Convexity of linear Combination}\label{theorem:sum_convex}
+Using the definition of convexity given above, show that, if $f: \re^n \to \re$ and $g: \re^n \to \re$ are convex, and $a, b > 0$, the function $a f + bg : \re^n \to \re$ is convex, i.e., for any $\mx, \my \in \re^n$ and $\lambda \in [0, 1]$,
+\begin{equation*}
+    (a f + bg)(\lambda \mx + (1 - \lambda)\my) \leq \lambda (a f + bg)(\mx) + (1 - \lambda) (a f + bg)(\my)
+\end{equation*}
+
+\subsection{Convexity of Regression Objectives}
+
+By computing the hessian show that, $\loss_{SSE}(\wb), \loss_{Logistic}(\wb), \loss_2(\wb)$ are convex. From the definition of convexity in \nameref{def:convexity} show that $\loss_1(\wb)$ is convex (as it's not differentiable. Hint: Use the triangle inequality).\\
+Using \nameref{theorem:sum_convex} do you see that why all four below functions are convex?
+$$\{\loss_{SSE}(\wb), \loss_{Logistic}(\wb)\} + \lambda \{\loss_2(\wb), \loss_1(\wb)\}$$

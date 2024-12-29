@@ -1,0 +1,18 @@
+\begin{enumerate}
+\item 
+You may refer to \cite{Petersen2012} for matrix derivatives for the upcoming problems.
+\item Below notations are consistent throughout the document.
+\item The dataset is denoted as $\data = \{(\xieg, \yieg)\}_{i = 1}^{m}$ where $\xieg \in \re^{n}$ and $\yieg \in \re^{n}$ for Linear Regression. Further $\yieg \in \{0, 1\}$ for Logistic Regression.
+\item $\wb \in \re^n$ and $\wb = \left[ \begin{smallmatrix} w_1 & w_2 & w_3 & \dots & w_n \end{smallmatrix} \right]^T$.
+\item For Linear Regression,  $\yhatieg =  \wb^T \xieg + b$.
+\item For Logistic Regression,  $\yhatieg =  g(\wb^T \xieg + b)$, where $g: \re \to \re$ is an activation function.
+\item  \label{loss_functions}
+\begin{align*}
+\loss_{SSE}(\wb, b) &= \frac{1}{m}\sum_{i = 1}^{m}(\yieg - \yhatieg)^2\\
+\loss_{Logistic}(\wb, b) &= -\frac{1}{m}\sum_{i = 1}^{m} \yieg\log(\yhatieg) + (1 - \yieg)\log(1 - \yhatieg)\\ 
+\loss_2(\wb,b) &= \wb^T\wb\\
+\loss_1(\wb,b) &= \sum_{i = 1}^{n} |w_i|\\
+\end{align*}
+
+\item When the bias term is taken as a feature, the absorb $b$ in $\wb$ and the loss functions in \autoref{loss_functions} can be denoted as $\loss_{SSE}(\wb)$, $\loss_{Logistic}(\wb)$, $\loss_2(\wb)$, $\loss_1(\wb)$, respectively.
+\end{enumerate}

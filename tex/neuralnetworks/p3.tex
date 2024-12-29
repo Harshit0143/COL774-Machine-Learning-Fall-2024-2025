@@ -1,0 +1,49 @@
+\subsection{Dropouts in Linear Regression}
+\cite{Goodfellow-et-al-2016} have mentioned in the chapter \textbf{Regularization for Deep Learning}, 
+
+\begin{center}
+    \textit{"when applied to linear regression, dropout is equivalent to $L_2$ weight decay, with a different weight decay coefficient for each input feature"}
+\end{center}
+
+We'll prove this here. Consider data, $\{(\xieg, \yieg)\}_{i = 1}^m$, $\wb$, $b$ with dimensions as described in \nameref{intro}. We'll apply dropouts on the input features $\mx_j$ to the model. We'll call our model $\mM$. In training mode, for each forward pass each of the $n$ features is independently used with \textbf{fixed} probability $p \in (0, 1)$, otherwise \textbf{dropped}. During evaluation, all the features are used but the corresponding weight is scaled according to $w_i \to p w_i$, as done in dropouts to prevent inflating the activation (here Identity).
+
+
+\begin{enumerate}[label=\alph*)]
+
+\item While training, notice that the output $\mM(\mx)$ is a random variable. Show that the model output can be expressed precisely as
+    \begin{equation*}
+        \mM(\mx) = \wb^T (\mx \odot \md) + b
+    \end{equation*}
+Where  $\odot$ represents the element-wise product and $\md \in \{0, 1\}^n$ is a random vector.  
+
+\item Obtain the probability distribution of $\md$. Hence compute $\mE[\md]$ and $\mE[\md\md^T]$.
+
+\item Prove these trivial properties, $\mx$  is a constant.
+\begin{align*}
+    (\mx \odot \md)  (\mx \odot \md)^T &=(\mx\mx^T) \odot (\md\md^T)\\
+    \mE[\mx \odot \md] &= \mx\odot \mE[\md]\\
+    \sum_{\mx} (\md \odot \mx) &= \md \odot (\sum_{\mx} \mx)
+\end{align*}
+
+\item Now, while training we'll use the SSE loss i.e.
+\begin{align*}
+    \loss^{(i)}(\wb, b) &= (\mM(\xieg) - \yieg)^2\\
+    \loss(\wb, b) &= \frac{1}{m}\sum_{i = 1}^m  \loss^{(i)}(\wb, b)
+\end{align*}
+Notice that $\loss(\wb, b) $ is a random variable. Show that
+\begin{align*}
+    \mE[\loss(\wb, b)] &= \frac{1}{m}\sum_{i = 1}^{m}(p\wb^T \xieg + b - \yieg)^2 + p(1 - p)\sum_{j = 1}^m \alpha_j \wb_j^2\\
+    \text{where } \alpha_j &= \frac{1}{m}\sum_{i = 1}^{m} (\mx_j^{(i)})^2
+\end{align*}
+
+\item 
+Express  $\loss(\wb, b)$ as  $\Tilde{\loss}(\Tilde{\wb}, b)$ where $\Tilde{\wb} = p \wb$ (because finally we'll use $\Tilde{\wb}$ for evaluation). Assume all $n$ features have been shifted to zero data mean. Show that
+\begin{equation}\label{dropouts}
+  \mE[\Tilde{\loss}(\Tilde{\wb}, b)] = \frac{1}{m}\sum_{i = 0}^{m}(\Tilde{\wb}^T \xieg + b - \yieg)^2 + \frac{1 - p}{p}\sum_{j = 1}^m \sigma_j^2 \Tilde{\wb}_j^2\\
+\end{equation}
+Where $\sigma_j$ is the data standard deviation of the $j^{th}$ feature.
+
+\item Observe that $\Tilde{\wb} = p\wb \implies \loss(\wb, b) = \Tilde{\loss}(\Tilde{\wb}, b)$, hence minimizing $\loss(\wb, b)$ over $(\wb, b)$ is equivalent to minimizing  $\Tilde{\loss}(\Tilde{\wb}, b)$ over $(\Tilde{\wb}, b)$. Clearly \autoref{dropouts} shows that using dropouts in Linear Regression has the effect of $\loss_{2}$ regularization on $\Tilde{\wb}$. What can you say about the penalty corresponding to two different features relatively? 
+
+\item Think about the strength of regularization in the limits, $p \to 0^+$ and $p \to 1^-$. Was this expected?
+\end{enumerate}

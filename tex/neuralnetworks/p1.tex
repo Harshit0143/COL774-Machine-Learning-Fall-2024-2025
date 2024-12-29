@@ -1,0 +1,33 @@
+\subsection{Backpropagation in Neural Networks}
+Following the terminology used in class. Write Backpropagation for Neural Networks yourself and hence, the update rule for each weight and bias in the network. Consider the $r$ class classification problem with Softmax in the last layer and the Cross Entropy loss function.
+
+\subsection{Backpropagation in CNN's}
+Can you point out what makes backpropagation in CNN's more difficult/ worrisome that vanilla neural networks? \textbf{Parameter Sharing!} The weight ($\wb$) and bias ($b$) matrices are shared by every "patch" in a feature map. Consider the input feature map $\mx$ of size $h_1 \times w_1 \times d_1$. Denote the loss function on the final output as $\loss$. We have the following layers. 
+\begin{itemize}
+    \item 
+Layer 1:
+The convolution filter of height and width $a$ each with stride $s$ runs on $\mx$. Assume $s$ divides $(h_1 - a)$ and $(w_1 - a)$. The output feature map, called $\hat{\mz}$ has depth $d_2$. 
+\begin{itemize}
+    \item Write down the exact dimensions of $\wb$, $b$ and $\hat{\mz}$.
+    \item Write the expression for $\hat{\mz}_{ijk}$ for each feature in $\hat{\mz}$. 
+    \item Assuming for all $i,j,k$ in the size if $\hat{\mz}$, $\frac{\partial \loss}{\partial \hat{\mz}_{ijk}}$ is known, obtain $\frac{\partial \loss}{\partial w_{pqrk}}, \frac{\partial \loss}{\partial b_{rk}}$ and $\frac{\partial \loss}{\partial \mx_{abr}}$.
+\end{itemize}
+
+\item 
+Layer 2: Assume $\hat{\mz}$ has size $h_2 \times w_2 \times d_2$. A max pooling filter of shape $a \times a$ with stride $a$ runs over $\hat{\mz}$ to produce  $\mz$. Assume $a$ divides $h_1$ and $w_1$. 
+\begin{itemize}
+    \item  Write down the exact dimensions of $\mz$ and the expression for each $\mz_{ijk}$ in terms of $\hat{\mz}$.
+    \item Assuming for all $i,j,k$ in the size of $\mz$, $\frac{\partial \loss}{\partial \mz_{ijk}}$ is known, obtain $\frac{\partial \loss}{\partial \hat{\mz}_{pqk}}$.
+\end{itemize}
+
+\item Layer 3: Assume $\mz$ has size $h_3 \times w_3 \times d_3$. The Sigmoid activation is applied to $\mz$ pointwise, to obtain $\my$.
+\begin{itemize}
+    \item  Write down the exact dimensions of $\my$ and the expression for each $\my_{ijk}$ in terms of $\mz$.
+    \item Assuming for all $i,j,k$ in the size of $\my$, $\frac{\partial \loss}{\partial \my_{ijk}}$ is known, obtain $\frac{\partial \loss}{\partial \mz_{pqk}}$.
+\end{itemize}
+
+\item Realize that "sliding" the Convolution Filter over the input feature map is just for intuition. All features in the output feature map can be computed in parallel.
+\end{itemize}
+
+
+

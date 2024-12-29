@@ -1,0 +1,59 @@
+\subsection{Multiple Minimas}\label{prob:dependent_factors}
+In this problem we'll re what happens when $\mA$ in \nameref{prob:unique_minima} has some eigenvalues $0$. Consider the data matrices, $\mX \in \re^{m \times n}$ and $\mY \in \re^{m}$.
+\begin{equation*}
+\mX =    
+\begin{pmatrix}
+\mathbf{x}^{(1)T}\\
+\mathbf{x}^{(2)T}\\
+\vdots \\
+\mathbf{x}^{(m)T}\\
+\end{pmatrix}
+\ \ 
+\mY=    
+\begin{pmatrix}
+y^{(1)}\\
+y^{(2)}\\
+\vdots \\
+y^{(m)}\\
+\end{pmatrix}
+\end{equation*}
+
+Absorb the bias term in Linear Regression into $\xieg$'s. We derived the condition for the optimal $\wb^{*}$ as (derive it yourself if you don't remember this),
+\begin{equation}\label{equation:minima_condition}
+    \mX^T\mX\wb^* = \mX^Ty
+\end{equation}
+
+When $\mX^T\mX$ is invertible, we get
+\begin{equation}
+    \wb^* = (\mX^T\mX)^{-1}\mX^Ty
+\end{equation}
+
+We'll now examine precisely when is $\mX^T\mX$ not invertible.
+
+\begin{enumerate}[label=\alph*)]
+\item Show that \autoref{equation:minima_condition} has atleast one solution.
+\item Show that all $\wb^*$ satisfying \autoref{equation:minima_condition} lead to the same $\loss_{SSE}(\wb^*)$ value.
+\item 
+Show that a square matrix $\mA \in \re^{n \times n}$ is not invertible if and only if $\mA \mv = \mathbf{0}$ for some non-zero $\mv \in \re^n$.
+
+\item For any $\mv \in \re^n$, show that \begin{equation}
+ \mX^T\mX\mv = \bz \iff \mX\mv = \bz   
+\end{equation} 
+If you need a hint, see this\footnote{For $\mz 
+\in \re^n$, $\mz^T\mz = 0 \iff \mz = \bz$.}. If you're up for a challenge (this will not be used in later parts), let $\mC \in \re^{m \times m}$ be a fixed, Symmetric Positive Definite matrix, show that 
+\begin{equation*}
+\mX^T\mC\mX\mv = \bz \iff \mX\mv = \bz
+\end{equation*}
+
+
+\item  \label{dependent_factors_c}
+Now let $\mX^T\mX$ be non-invertible. Using the above part, what do you conclude about the columns of $\mX$, the data matrix (note that there's also the column of all $1$'s in $\mX$). Let $\wb_1^*$ be one $\wb$ minimizing $\loss_{SSE}(\wb)$, obtain another.
+% i.e. there $\exists \mv \in \re^n - \{\bz\}$ such that $\mX\mv = \bz$.
+\item \label{dependent_factors_d}
+Continuing \autoref{dependent_factors_c}, if you have to choose a subset of the initial $n$ features, for regression, without losing any information, how would you do that?
+
+\item Following, the above part, can you realize why assuming $\mA$ in \nameref{prob:unique_minima} to be positive definite, instead of positive semi-definite, is reasonable and doesn't lead to loss of generality?
+
+\item Redo all above parts for Weighted Linear Regression, with example-wise weights, $u_1, u_2...u_m$, all positive. You'll see all these results hold true for this case too! 
+\end{enumerate}
+

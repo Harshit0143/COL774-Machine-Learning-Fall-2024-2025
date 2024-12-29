@@ -1,0 +1,55 @@
+\subsection{LASSO for feature selection}
+
+\cite{Goodfellow-et-al-2016} have mentioned in the chapter \textbf{Regularization for Deep Learning}, 
+\begin{center}
+     \textit{"the well known LASSO (Tibshirani, 1995) (least absolute shrinkage and selection operator) model integrates an $L_1$ penalty with a linear model and a least-squares cost function. The $L_1$ penalty causes a subset of the weights to become zero, suggesting that the corresponding features may safely be discarded."}
+\end{center}
+
+
+We'll see in this problem how. Let $x \in \re$. Let $a > 0, \lambda > 0, b, c, x \in \re$ and 
+
+\begin{align*}
+w^* &=\argmin_{x} ax^2 + bx + c\\
+w(\alpha) &= \argmin_{x} ax^2 + bx + c + \alpha |x|\\
+\end{align*}
+
+\begin{enumerate}[label=\alph*)]
+\item Compute $w(\alpha)$ in terms of $\alpha, a, w^*$. What do you conclude?
+
+\item Now let's consider multiple features. Let $\mA = diag(a_1, a_2\hdots, a_n), a_i > 0 \ \ \forall i$ and $\mb \in \re^n$. 
+\begin{align*}
+    \wb^* &= \argmin_{\mx \in \re^n} \mx^T \mA \mx + \mb^T \mx + c\\
+    \wb(\alpha) &= \argmin_{\mx \in \re^n} \mx^T \mA \mx + \mb^T \mx + c + \alpha\norm{\mx}_1\\   
+\end{align*}
+Show that 
+\begin{equation*}
+    \wb(\alpha)_i = sign(\wb_i)\max(0, |w_i| - \frac{\alpha}{a_i})
+\end{equation*}
+What happens to components of $\wb(\alpha)$ corresponding to smaller diagonal entries of $\mA$? How can this be used for feature selection?
+\end{enumerate}
+
+
+
+
+\subsection{Limit of Locally Weighted Linear Regression}
+The problem idea was suggested to me by \href{https://www.cse.iitd.ac.in/~rahulgarg/}{Prof. Rahul Garg}. Recall Locally Weighted Linear Regression done in class. We'll understand what happens in the limit, hyper-parameter $\sigma \to \infty$ and $\sigma \to 0^+$. 
+Consider points $x_1 <  x_2 < x_3....x_m \in \re$ and $\lambda > 0$ be fixed. We need to regress over points $(x_1, y_1), (x_2, y_2) \hdots (x_m, y_m)$. 
+The loss function, for a point $x \in \re$ is
+
+\begin{align*}
+\alpha_{\sigma, i}(x) &= \frac{e^{-\frac{(x - x_i)^2}{2\sigma^2}}}{\sum_{j = 1}^{m} e^{-\frac{(x - x_j)^2}{2\sigma^2}}}\\
+\hat{y}_i &= w x_i + b\\
+\loss_{\sigma}(x, w, b) &= \frac{1}{m}\sum_{i = 1}^{m} \alpha_{\sigma, i}(x)(y_i - \hat{y}_i)^2 + \lambda w^2
+\end{align*}
+
+Denote \begin{align*}
+w_{\sigma}(x), b_{\sigma}(x) &= \argmin_{w, b}\loss_{\sigma}(x, w, b)\\
+f_{\sigma}(x) &= w_{\sigma}(x) x + b_{\sigma}(x)
+\end{align*}
+
+\begin{enumerate}[label=\alph*)]
+\item Obtain $f_{\infty}(x) = \lim_{\sigma \to \infty} f_{\sigma}(x)$.
+\item Obtain $f_{0}(x) = \lim_{\sigma \to 0^{+}} f_{\sigma}(x)$.
+\end{enumerate}
+
+

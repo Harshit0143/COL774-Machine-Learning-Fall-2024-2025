@@ -1,0 +1,38 @@
+\subsection{Probabilistic Interpretation of Laplace Smoothing}
+See \textbf{4.2.2 Event models for text classification} in \cite{ng2023cs229}. 
+We have a training set $\{(\xieg, \yieg); i = 1, \dots , m \}$ where $\xieg = (\xupi_1, \dots , \xupi_{d_n})$. Here, $d_i$ is the number of words in the training example $i^{th}$. The parameters $\phi, \phi_{k0}, \phi_{k1}, k \in \{1, 2,\dots,|V|\}$ have meaning as discussed in class. Denote $\Phi_0 = (\phi_{10},\dots, \phi_{|V|0})$ and $\Phi_1 = (\phi_{11},\dots, \phi_{|V|1})$. We will treat them as random variables with the prior distributions below and obtain the MAP estimates.
+\begin{align*}
+    \phi &\sim \mathcal{U}(0, 1)\\
+    p(\Phi_0) &\propto \left(\prod_{k = 1}^{|V|}(\phi_{k0})^{a_0}\right) \text{ for }0 < \phi_{k0} < 1, \ \ \Sigma \phi_{k0} = 1\\
+    p(\Phi_1) &\propto \left(\prod_{k = 1}^{|V|}(\phi_{k1})^{a_1}\right) \text{ for }0 < \phi_{k1} < 1, \ \ \Sigma \phi_{k1} = 1\\
+\end{align*}
+ % p(\Phi_0) &\propto \prod_{k = 1}^{|V|}(\phi_{k0})^{a_0}, 0 < \phi_{k0} < 1, \Sigma \phi_{k0} = 1\\
+Where $a_0, a_1 > 0$ are fixed. $\Phi_0$ and $\Phi_1$ follow the distributions, \textbf{Dirichlet}$(a_0 + 1, \dots, a_0 + 1)$ and \textbf{Dirichlet}$(a_1 + 1, \dots, a_1 + 1)$, more popularly the \textbf{Beta} distribution, when $|V| = 2$. Assume that
+\begin{itemize}
+\item 
+All training examples are \textbf{independent}.
+\item
+There is atleast one example of each class.
+\item
+Each word in vocabulary $V$ is present in atleast one example of each class.
+\item $\phi, \Phi_0$ and $\Phi_1$ are independent.
+\end{itemize}
+
+\begin{enumerate}[label=\alph*)]
+\item Show that
+\begin{align*}
+    p(\phi, \Phi_0, \Phi_1 | \{(\xieg, \yieg)\}_{i = 1}^{m}) = \frac{p(\phi)p(\Phi_0) p(\Phi_1)   \prod_{i = 1}^{m} p(\xieg, \yieg | \phi, \Phi_0, \Phi_1)}{p(\{(\xieg, \yieg)\}_{i = 1}^{m})}
+\end{align*}
+\item The naive Bayes assumption is that the words (random variables) in different positions $X_1, X_2,\dots, X_{d_i}$ give $y$ are independent. Show that
+\begin{equation*}
+p(\xieg, \yieg | \phi, \Phi_0, \Phi_1) =  \phi^{\yieg}(1 - \phi)^{(1 - \yieg)} \prod_{j = 1}^{d_i} \left(\prod_{k = 1}^{|V|}\phi_{k0}^{1\{x^{(i)}_j = k \land \yieg = 0\}} \phi_{k1}^{1\{x^{(i)}_j = k \land \yieg = 1\}}\right)
+\end{equation*}
+
+\item Show that $\argmax_{\phi, \Phi_0, \Phi_1} p(\phi, \Phi_0, \Phi_1 | \{(\xieg, \yieg)\}_{i = 1}^{m})$ gives
+\begin{align*}
+\phi_{k0} &= \frac{a_0 + \sum_{i=1}^{m} \sum_{j=1}^{d_i} 1\{x_j^{(i)} = k \land \yieg = 0\}}{a_0 |V| + \sum_{i=1}^{m} 1\{\yieg = 0\}d_i}\\
+\phi_{k1} &= \frac{a_1 + \sum_{i=1}^{m} \sum_{j=1}^{d_i} 1\{x_j^{(i)} = k \land \yieg = 1\}}{a_1 |V| + \sum_{i=1}^{m} 1\{\yieg = 1\}d_i}\\
+\phi &= \frac{\sum_{i=1}^{m} 1\{\yieg = 1\}}{m}
+\end{align*}
+Keep in mind that the parameters are constrained, $\sum_{k = 1}^{|V|} \phi_{k0} = \sum_{k = 1}^{|V|} \phi_{k1} = 1$
+\end{enumerate}

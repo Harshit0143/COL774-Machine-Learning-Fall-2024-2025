@@ -1,0 +1,100 @@
+\subsection{Distribution of Multivariate Gaussian}
+
+\begin{tcolorbox}
+[width=\linewidth, sharp corners=all, colback=white!95!black]
+Let random vector $\mX = \begin{bmatrix}X_1 & X_2 & \dots & X_n\end{bmatrix}^T$. Let $\mZ \in \re^l$ be the standard normal random vector (i.e. $Z_i \sim \mathcal{N}(0,1)$ for $i=1,\dots,\ell$ are i.i.d.). Then $X_1,\dots, X_n$ are \textit{jointly Gaussian} if there exist $\bmu \in \re^n$, $\mA \in \re^{n \times \l}$ such that $\mX = \mA \mz + \bmu$.
+\end{tcolorbox}
+
+We will see how this leads to the famous multivariate Gaussian distribution when the covariance matrix $\bsigma$ is invertible. The joint moment generation function of random variables $X_1, X_2...X_n$ is defined as
+\begin{equation*}
+    M(t_1, t_2,\dots,t_n) = E[e^{t_1X_1,\dots,t_nX_n}]
+\end{equation*}
+\cite{ross2014first} in "Chapter 7 Properties of Expectation" has mentioned
+
+\begin{center}
+\textit{
+It can be proven (although the proof is too advanced for this text) that the joint
+moment generating function $M(t_1,\dots, t_n)$ uniquely determines the joint distribution of $X_1, \dots , X_n$.}
+\end{center}
+Denote $\mt = \begin{bmatrix}t_1 & t_2 & \dots   & t_n \end{bmatrix}^T$. Given the facts
+\begin{align*}
+    &Y \sim \mathcal{N}(\mu, \sigma^2) \implies \expect[\exp{(Y)}] = \exp{(\mu + \frac{\sigma^2}{2})}\\
+    &\int_{\mx \in \re^n} f(\mx) d^n\mx =  \int_{\malpha \in \re^n} f(\mQ \malpha + \mb) |\mQ| d^n\malpha
+\end{align*}
+where $\mb \in \re^n$ and $\mQ \in \re^{n \times n}$ is invertible.
+
+\begin{enumerate}[label=\alph*)]
+\item Prove that
+\begin{equation*}
+\expect[\exp{(\mt^T \mX)}] = \exp{(\mt^T\bmu + \frac{\mt^T\mA\mA^T\mt}{2})}
+\end{equation*}
+
+\item Prove that if PDF of $\mX$ is 
+    \begin{equation*}
+        f_{\mX}(\mx) = \frac{1}{|\bsigma|^{\frac{1}{2}}(2\pi)^{\frac{n}{2}}}\exp{(\frac{-(\mx - \bmu)^T\bsigma^{-1}(\mx - \bmu)}{2})}
+    \end{equation*}
+    then 
+    \begin{equation*}
+    \expect[\exp{(\mt^T \mX)}] = \exp{(\mt^T\bmu + \frac{\mt^T\bsigma\mt}{2})}
+    \end{equation*}
+    If you need a hint see this.\footnote{$\bsigma$ is symmetric positive definite, so it has a unique symmetric positive definite square root, Write the integral and substitute $\mx = \bsigma^{\frac{1}{2}}\malpha + (\bmu + \bsigma \mt)$.}
+
+
+    
+\end{enumerate}
+
+\subsection{GDA: Introduction}\label{gda_ref}
+The GDA model learns the parameters $\phi \in (0, 1)$, $\bmu_0, \bmu_1 \in \re^n$, and $\bsigma_0, \bsigma_1 \in \re^{n \times n}$.  $\bsigma_0, \bsigma_1$ should be symmetric positive definite. Here $\mx \in \re^n$.
+\begin{align*}
+    y &\sim \text{Bernoulli}(\phi)\\
+    \mx | y = 0 &\sim \mathcal{N}(\bmu_0, \bsigma_0)\\
+    \mx | y = 1 &\sim \mathcal{N}(\bmu_1, \bsigma_1)
+\end{align*}
+\subsection{Decision Boundary in GDA}
+Show that the decision boundary of GDA has equation
+\begin{equation*}
+\frac{1}{2} \mx^T(\bsigma^{-1}_1 - \bsigma^{-1}_0)\mx - (\bmu^T_1 \bsigma^{-1}_1 - \bmu^T_0 \bsigma^{-1}_0)\mx + \frac{1}{2}(\bmu^T_1 \bsigma^{-1}_1 \bmu_1 - \bmu^T_0 \bsigma^{-1}_0 \bmu_0) + ln(\frac{1 - \phi}{\phi} \sqrt{\frac{|\bsigma_1|}{|\bsigma_0|}}) = 0
+\end{equation*}
+Give an example of values of $\gdaparm$ so that the decision boundary has equation 
+\begin{equation*}
+    \wb^T \mx + b = 0
+\end{equation*}
+
+% \subsection{GDA is the best!}
+% \cite{ng2023cs229} mentioned that
+% \begin{center}
+%     \textit{"Informally, this means that in the limit of very large training sets (large n), there is no algorithm that is strictly better than GDA (in terms of, say, how accurately they estimate $p(y|x)$)."}
+% \end{center}
+%     give poission and uitivatiate gaussian
+% Estimation of p(y | x)
+% Show that almost sure convergence
+\subsection{Logistic Regression is robust!}
+\cite{ng2023cs229} mentioned in \textbf{Generative learning algorithms}
+\begin{center}
+    \textit{"There are many different sets of assumptions that would lead to $p(y|x)$ taking the form of a logistic function."}
+\end{center}
+
+\begin{enumerate}[label=\alph*)]
+\item 
+Consider the modeling assumptions of \nameref{gda_ref}. Find the expression for $p(y | \mX = \mx)$. Constrain $\bsigma_0 = \bsigma_1 = \bsigma$. Show that it takes the logistic form
+\begin{equation*}
+    p(y = 1 | \mx ; \phi, \bmu_0, \bmu_1, \bsigma) = \frac{1}{1 + e^{-(\wb^T \mx + b)}}
+\end{equation*}
+
+\item Let $\lambda_0, \lambda_1 > 0$, $0 < \phi < 1$ and 
+\begin{align*}
+        y        &\sim \text{Bernoulli}(\phi)\\
+        X | y = 0 &\sim \text{Poisson}(\lambda_0)\\
+        X | y = 1 &\sim \text{Poisson}(\lambda_1)
+\end{align*}
+Show that $p(y | X = x)$ takes the logistic form
+\begin{equation*}
+    p(y = 1 | X = x ; \phi, \lambda_0, \lambda_1) = \frac{1}{1 + e^{-(wx + b)}}
+\end{equation*}
+
+\item  Despite the result in (a), training Logistic Regression and GDA on the same data, don't learn the same boundary. Why? \textbf{Hint:} Write down the respective loss functions.
+
+\end{enumerate}
+
+
+

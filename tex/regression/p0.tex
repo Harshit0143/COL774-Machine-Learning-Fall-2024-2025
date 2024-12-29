@@ -1,0 +1,42 @@
+\subsection{GFLOPS Calculation}
+
+
+
+For matrix multiplication \( \mathbf{Y} = \mathbf{WX} \), where \( \mathbf{X} \in \re^{m \times n}\)  matrix and \( \mathbf{W} \in \re^{n \times 1}\):
+
+\begin{enumerate}
+    \item \textbf{Using a Python implementation with nested for loops:}
+    \begin{itemize}
+        \item Calculate the GFLOPS (Giga-Floating Point Operations Per Second) for the matrix multiplication operation. Determine the total number of floating-point operations involved, including both multiplication and addition operations, divide this by the time taken to execute the matrix multiplication, and convert the result to GFLOPS by dividing by \( 10^9 \).
+    \end{itemize}
+
+    \item \textbf{Using Python’s \texttt{numpy} library:}
+    \begin{itemize}
+        \item Similarly, calculate the GFLOPS for the matrix multiplication operation using \texttt{numpy}'s built-in matrix multiplication function.
+    \end{itemize}
+
+    \item \textbf{Comparison and Visualization:}
+    \begin{itemize}
+        \item Plot a graph with the x-axis representing \(m\) (considering constant \(n\)) and the y-axis representing GFLOPS to illustrate the performance difference between the two implementations.
+    \end{itemize}
+\end{enumerate}
+
+
+
+\subsection{Binary Classification}
+
+
+For binary classification using the sigmoid function, write the gradient descent update rule for the following methods:
+
+\begin{enumerate}
+    \item \textbf{Stochastic Gradient Descent (SGD):} \\
+    Update the model parameters using one data point at a time.
+
+    \item \textbf{Batch Gradient Descent:} \\
+    Update the model parameters using the entire dataset.
+
+    \item \textbf{Mini-Batch Gradient Descent:} \\
+    Update the model parameters using a subset of the dataset (a mini-batch).
+\end{enumerate}
+
+Use the sigmoid function \( \sigma(z) = \frac{1}{1 + e^{-z}} \).

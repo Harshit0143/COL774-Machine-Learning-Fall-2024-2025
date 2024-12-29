@@ -1,0 +1,26 @@
+\subsection{Probabilistic Interpretation of Regularization}
+
+In class we looked at the Maximum Likelihood Estimate of $\wb$ for the Linear Regression problem. We considered $\wb$ as parameter and the optimum $\wb_{MLE}$ (for a single example) was defined as
+$$\wb_{MLE} = \argmax_{\wb} P(\yieg | \xieg ; \wb)$$
+
+Now, let's treat $\wb$ as a Random Variable, distributed as (this is called a \textbf{priori} on $\wb$)
+$$\wb \sim  \mathcal {N}(\mathbf{0},\mathbf{\Sigma})$$
+where $\mathbf{\Sigma} = diag\{\lambda_1, \lambda_2..\lambda_n\}$ and $\lambda_1, \lambda_2.....\lambda_n > 0$. We now define $\wb_{MAP}$ (MAP stands for \textbf{M}aximum \textbf{a} \textbf{P}osteriori) as 
+
+\begin{equation}\label{w_MAP}
+\wb_{MAP} = \argmax_{\wb} P(\yieg | \xieg, \wb) P(\wb)
+\end{equation}
+Now, similar to the MLE case, we assume, over all examples, $\yieg - \yhatieg| \xieg, \wb$ are $i.i.d$ distributed as
+\begin{equation*}
+\yieg - \yhatieg| \xieg, \wb \sim \mathcal{N}(0, \sigma^2)
+\end{equation*}
+
+\begin{enumerate}[label=\alph*)]
+\item 
+Simplify \autoref{w_MAP} for the entire dataset combined now, and show solving $\wb_{MAP}$ is similar to Linear Regression with $L_2$ Regularization on $\wb$.
+\item 
+Obtain explicitly, the \textbf{priori} on $\wb$ that will lead to the $L_1$ Regularization of $\wb$ (keep different penalty coefficient for each of the $n$ components of $\wb$). Does this distribution have a name?\\
+
+Solution to above part. It's called the \textbf{Laplace Distribution}.
+    $$p(w_1, w_2...w_n) = \prod_{i=1}^{n}\frac{\lambda_i}{2}e^{-\lambda_i |w_i|}$$
+\end{enumerate}

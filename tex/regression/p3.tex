@@ -1,0 +1,46 @@
+\subsection{Unique Minima}\label{prob:unique_minima}
+In class we discussed that the problem of Linear Regression has a unique optimum. We'll try to prove that formally and see what happens to stationary points when convexity is not guaranteed. Consider the function
+
+\begin{equation}\label{unique_minima_objective}
+\mf(\mx) = \frac{1}{2} \mx^T \mA \mx - \mb^   T\mx + c 
+\end{equation}
+Where $c\in \re, \ \  \mx  \in \re^n, \ \ \mb \in \re^n, \ \ \mA \in \re^{n \times n}$ and is Symmetric. All eigenvalues of $\mA$ are positive. We define $\mx^* \in \re^n$ such that $\nabla_\mx f |_{\mx = \mx ^ *} = 0$.
+
+\begin{enumerate}[label=\alph*)]
+\item Show that $\mA$ is invertible and hence $\mx^*$ exists uniquely.
+\begin{equation} \label{p2_minima}
+    \mf(\mx) - \mf(\mx^*) > 0 \ \ \forall \mx \in \re^n  -  \{\mx^*\}
+\end{equation}
+\item  We'll now prove \autoref{p2_minima}. Set $\mx = \mx^* + \epsilon \mz$, $\mz^T\mz = 1$, $\epsilon > 0$  in the equation, and show that
+\begin{equation}
+      \mf(\mx^* + \epsilon\mz) - \mf(\mx^*) = \frac{\epsilon^2}{2}\mz^T\mA \mz
+\end{equation}
+
+Assume the fact, "Every $n \times n$ Real Symmetric Matrix is Diagonalizable and has a set of $n$ Orthonormal Eigenvectors". Express $\mz$ as
+\begin{equation*}
+    \mz = \sum_{i = 1}^{n} a_i \mv_i
+\end{equation*}
+Where $\mv_i^T\mv_i = \delta_{ij}$ and $\lambda_i$ be the Eigenvalue of $\mA$ corresponding to $\mv_i$. Show that
+\begin{equation}
+      \mf(\mx^* + \epsilon\mz) - \mf(\mx^*) = \frac{\epsilon^2}{2}\sum_{i = 1}^{n} a_i^2 \lambda_i
+\end{equation}
+
+
+\item Now, let all eigenvalues of $\mA$ be non-zero and not all of the same sign. Obtain \textbf{explicitly}, atleast one $\mz \in \re^n$ such that  $\norm{z}_2 = 1$ and $\mf(\mx^* + \epsilon \mz) - \mf(\mx^*) < 0$ for some $\epsilon > 0$.
+
+\item Show that the Linear Regression objective can be expressed \autoref{unique_minima_objective}. Does the condition, "$\mA$ is Symmetric. All eigenvalues of $\mA$ are positive" assumed here always hold in linear Regression? Clearly describe the condition on the data when this isn't true. We'll derive these conditions in \nameref{prob:dependent_factors}.
+\end{enumerate}
+
+% \subsubsection*{Hint}
+% \begin{enumerate}
+%     \item \label{p2_hint_1} In  \autoref{p2_minima}, parametrize $\mx$ as $\mx = \mx^* + \epsilon\mt$ where $\epsilon \in \re, \ \ \mt \in \re^n$ and  $\norm{t}_2 = 1$. It solves to $\mf(\mx) - \mf(\mx^*) = \frac{\epsilon^2}{2} \mt^T \mA \mt > 0 \ \ \forall$ directions $\mt$.
+
+% \item Express $\mt$ as a linear combination of the eigenvectors of $\mA$. You'll need to use the facts "Every Real Symmetric Matrix is diagonalisable" and "For a Real Symmetric Matrix, Eigenvectors corresponding to distinct eigenvalues are Orthogonal". 
+% \item If $(\mmu_1, \mmu_2...\mmu_n)$ are normalized eigenvectors of $\mA$ (chosen orthogonal\footnote{$\mA$ is Symmetric, so eigenvectors corresponding to distinct eigenvalues are orthogonal. If eigenvalues are repeated, you can choose an orthogonal basis for the that eigenspace.}) with eigenvalues $(\lambda_1, \lambda_2...\lambda_n)$. Let 
+% $\mt = \sum_{i = 1}^{n} a_i \mmu_i$ with $\sum_{i = 1}^{n} a_i^2 = 1$ then 
+% \begin{equation*}
+%  \mf(\mx) - \mf(\mx^*) = \frac{\epsilon^2}{2}\sum_{i = 1}^{n} a_i^2 \lambda_i
+% \end{equation*}
+% Choose $a_i = 1$ such that $\lambda_i < 0$ to solve c). Similarly you can see the change in $\mf(\mx)$ on moving in any direction.
+
+% \end{enumerate}

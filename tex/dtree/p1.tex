@@ -1,0 +1,18 @@
+\subsection{Fast Greedy Pruning}
+Consider data of the form $\{(\xieg, \yieg)\}_{i = 1}^{m}$ where $\xieg$ is an $n$-dimensional feature vector and $\yieg \in \{0, 1\}$. Denote the validation set by $V$. We wish to implement the Greedy Pruning algorithm to prune a trained decision tree $T$ using the validation set $V$.\\ \\
+In each iteration, we consider all non-leaf nodes in $T$, and remove the entire subtree of a node (hence making it the leaf) that leads to maximum increase in accuracy on $V$. The process ends when any remaining nodes in the tree lead to a decrease in accuracy on $V$.\\\\
+Naively implementing this algorithm takes $\mathcal{O}(n_{iters} \cdot |T| \cdot |V|\cdot depth(T))$ time. Here, in each iteration we temporarily prune a node and run $V$ through the tree, to get accuracy on $|V|$. Finally, we actually prune the node based on the rule described above. 
+
+Think of an algorithm that can do this in $\mathcal{O}(|V| \cdot depth(T) + n_{iters} (|T| + depth(T)))$ time. Realize why this is a very great speed up.\\\\
+You can find a well-tested Python implementation of this algorithm \href{https://github.com/Harshit0143/Machine-Learning-Assignments/blob/76c2e67599deeeebfd6a1ae3033da8f0f2709b4f/Assignment3/q1/pruning.py#L287}{here} \cite{HarshitGoyal}.
+Hints for the Algorithm
+\begin{enumerate}
+    \item During the pruning process, the split rule at every node remains the same. The set of examples from $V$ that reach any node of $T$ during pruning remains exactly the same.
+
+    \item Store $n_0, n_1, n_{true}$, the number of examples from class $0$, class $1$ from $|V|$ that reach this node and number of examples from these that are correctly classified, respectively. This can be done in $\mathcal{O}(|V| \cdot depth(T))$ time.
+
+    \item For a non-leaf fixed node, the change in accuracy on $V$, when pruning it can be obtained in $\mathcal{O}(1)$ time.
+
+    \item If you have to prune a non-leaf node $ver$, then $n_0, n_1$ remains unchanged throughout the tree. For which nodes does $n_{true}$ change? You can update this value for all such nodes in total $\mathcal{O}(depth(T))$ time. 
+\end{enumerate}
+

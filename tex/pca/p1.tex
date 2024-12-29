@@ -1,0 +1,52 @@
+\subsection{Variance and covariance of projected features}\label{variance_and_covaraince}
+Consider the data $\data = \{\xieg\}_{i = 1}^{m}$. Let $\bu, \mv \in \re^n$ be such that $\norm{u}_2 =\norm{v}_2 = 1$. $\bsigma \in \re^{n \times n}$ is the covariance if $\mathcal{D}$. We now look at features formed by projecting $\data$ along the directions $\bu$ and $\mv$.
+
+\begin{enumerate}[label=\alph*)]
+\item Show that
+\begin{align*}
+    &\text{Var}(\bu^T\xieg)= \bu^T\bsigma\bu\\
+    &\text{Cov}(\bu^T\xieg, \mv^T\xieg) = \bu^T\bsigma\mv
+\end{align*}
+\item Let $\mv_1, \mv_2,\dots,\mv_n$ be eigenvectors of $\bsigma$, chosen orthonormal. Show that 
+\begin{align*}
+    &\text{Cov}(\mv^T_i\xieg, \mv^T_j \xieg) = 0, \ \  i \neq j\\
+    &\sum_{j = 1}^{n} \text{Var}(\mv^T_j \xieg) =  \sum_{j = 1}^{n} \text{Var}(\me^T_j \xieg) 
+\end{align*}
+By finding $\text{Var}(\mv^T_i \xieg)$ explicitly. Here $\me_1, \me_2,\dots$ are respectively $\begin{bmatrix}1 & 0 & \dots & 0\end{bmatrix}^T$, $\begin{bmatrix}0 & 1 & \dots & 0\end{bmatrix}^T$ and so on.
+\end{enumerate}
+
+\subsection{Projection Loss and maximizing variance}\label{projection_loss_max_variance}
+Consider the data $\data = \{(\xieg, \yieg)\}_{i = 1}^{m}$. $\xieg \in \re^n, \yieg \in \re$ Assume $\sum_{i = 1}^{m} \xieg = \bmu$.
+
+We have $k \leq n$ and the set of constraints, 
+\begin{align}
+    &\bu_i \in \re^n\label{constraints_start}\\
+    &\bu_i^T\bu_i = 1 \ \  i \in \{1, 2, \dots, k\}\\
+    &\bu_i^T\bu_j = 0 \ \  i, j \in \{1, 2, \dots, k\} \ \  i \neq j\label{constraints_end}
+\end{align}
+The projection $\xhati$ of $\xieg$ is given as 
+\begin{equation*}
+    \xhati = \bmu + \sum_{j = 1}^{k} \bu_j\bu_j^T(\xieg - \bmu)
+\end{equation*}
+Denote $\overline{\hat{\mathbf{x}}} = \frac{1}{m}\sum_{i = 1}^{m} \xhati$. We have the two optimization problems (under the constraints given before)
+\begin{enumerate}
+\item  Maximizing projected variance
+
+\begin{equation}\label{loss_max}
+    \maxbelow{\bu_1, \bu_2,\dots, \bu_k} \frac{1}{m \cdot n} \sum_{i = 1}^{m} \norm{\xhati - \overline{\hat{\mathbf{x}}}}_2^2\end{equation}
+\item Minimizing projection loss
+\begin{equation}\label{loss_min}
+\minbelow{\bu_1, \bu_2,\dots, \bu_k} \sum_{i = 1}^{m}\norm{\xieg - \xhati}_2^2\end{equation}
+\end{enumerate}
+\begin{enumerate}[label=\alph*)]
+    \item Assume all $\xieg$'s are exactly the same (i.e. the total variance in $0$) but all $\yieg$'s are distinct. Can you learn anything from this data? Do you realize why variance in the data is related to the information it gives? 
+    \item Show that both the problems above are equivalent. That is any set $\{\bu_1, \bu_2,\dots, \bu_k\}$ maximizing \autoref{loss_max} minimizes \autoref{loss_min} and vice-versa.
+\end{enumerate}
+\subsection{Is the solution unique?}
+Look at the optimization problem described in \nameref{projection_loss_max_variance} for minimizing projection loss, \autoref{loss_min}. $\{\bu_1, \bu_2,\dots, \bu_k\}$ is a set of orthonormal vectors. Denote $\bU \in \re^{n \times k}$ as the matrix with columns $\bu_i$'s in that order. Let $\mA \in \re^{k \times k}$ be orthonormal, and $\bU' = \bU \mA$. Let $\{\bu'_1, \bu'_2,\dots, \bu'_k\}$ be the columns of $\bU'$. 
+\begin{enumerate}[label=\alph*)]
+\item Show that $\{\bu'_1, \bu'_2,\dots, \bu'_k\}$ are orthonormal.
+\item Show that both $\{\bu_1, \bu_2,\dots, \bu_k\}$ and $\{\bu'_1, \bu'_2,\dots, \bu'_k\}$ give the same objective value in \autoref{loss_min}.
+\end{enumerate}
+Since you already know, taking the eigenvectors of $\mathbf{\Sigma}$, the data covariance as $\{\bu_1, \bu_2,\dots, \bu_k\}$ minimizes the projection loss. Now can you comment if this is the only solution to the problem of minimizing projection loss? We asked you the case, $k = 1$ of this problem in Quiz $10$!\\\\
+With some more work, you can show that $span(\{\bu_1, \bu_2,\dots, \bu_k\}) = span(\{\bu'_1, \bu'_2,\dots, \bu'_k\})$. Using this, grasp the fact that while minimizing projection loss, what we're actually looking for is a subspace to project the data onto. The Principal Components are actually a more informative representation of this subspace, because for every $k \leq n$, the span of the top $k$ eigenvectors is the optimal subspace.
